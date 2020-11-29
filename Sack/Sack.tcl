@@ -30,15 +30,9 @@ proc finish {} {
 
 proc record {} {
         global ns tcp0 tcp1 tcp2 tcp3 f0 f1 f2 f3
-	#Get an instance of the simulator
-	set ns [Simulator instance]
+	
 	#Set the time after which the procedure should be called again
         set time 0.1
-	#How many bytes have been received by the traffic sinks?
-        #set bw0 [$sink0 set bytes_]
-	#set bw1	[$sink1 set bytes_]
-	#set bw2 [$sink2 set bytes_]
-	#set bw3 [$sink3 set bytes_]
 		
 	#Get the current time
         set now [$ns now]
@@ -54,11 +48,6 @@ proc record {} {
 	puts $f2 "$now $cwnd2"
 	puts $f3 "$now $cwnd3"
 	
-	#Reset the bytes_ values on the traffic sinks
-        #$sink0 set bytes_ 0
-	#$sink1 set bytes_ 0
-	#$sink2 set bytes_ 0
-	#$sink3 set bytes_ 0
 	#Re-schedule the procedure
         $ns at [expr $now+$time] "record"
 }
