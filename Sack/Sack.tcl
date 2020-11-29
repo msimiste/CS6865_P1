@@ -35,7 +35,7 @@ proc record {} {
         set time 0.1
 		
 	#Get the current time
-        #set now [$ns now]
+        set now [$ns now]
 	#Calculate the bandwidth (in MBit/s) and write it to the files
        
         set cwnd0 [$tcp0 set cwnd_]
