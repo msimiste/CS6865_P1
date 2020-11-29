@@ -78,16 +78,15 @@ set n9 [$ns node]
 
 
 #Create a duplex link between the nodes
-$ns duplex-link $n0 $n2 10Mb 10ms DropTail
-$ns duplex-link $n1 $n2 10Mb 10ms DropTail
-$ns duplex-link $n2 $n3 10Mb 10ms DropTail
-$ns duplex-link $n3 $n4 10Mb 10ms DropTail
-$ns duplex-link $n3 $n5 10Mb 10ms DropTail
-$ns duplex-link $n6 $n2 10Mb 10ms DropTail
-$ns duplex-link $n3 $n7 10Mb 10ms DropTail
-$ns duplex-link $n8 $n2 10Mb 10ms DropTail
-$ns duplex-link $n3 $n9 10Mb 10ms DropTail
-
+$ns duplex-link $n0 $n2 10Mb 2ms DropTail
+$ns duplex-link $n1 $n2 10Mb 2ms DropTail
+$ns duplex-link $n2 $n3 100Mb 2ms DropTail
+$ns duplex-link $n3 $n4 10Mb 2ms DropTail
+$ns duplex-link $n3 $n5 10Mb 2ms DropTail
+$ns duplex-link $n6 $n2 10Mb 2ms DropTail
+$ns duplex-link $n3 $n7 10Mb 2ms DropTail
+$ns duplex-link $n8 $n2 10Mb 2ms DropTail
+$ns duplex-link $n3 $n9 10Mb 2ms DropTail
 
 
 $ns duplex-link-op $n2 $n0 orient left-up
