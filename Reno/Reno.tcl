@@ -11,11 +11,15 @@ set f0 [open 1_TCP.tr w]
 set f1 [open 2_TCP.tr w]
 set f2 [open 3_TCP.tr w]
 set f3 [open 4_TCP.tr w]
+set f4 [open 1_TCP_TGT.tr w]
+set f5 [open 2_TCP_TGT.tr w]
+set f6 [open 3_TCP_TGT.tr w]
+set f7 [open 4_TCP_TGT.tr w]
 $ns namtrace-all $nf
 
 #Define a 'finish' procedure
 proc finish {} {
-        global ns nf f0 f1 f2 f3
+        global ns nf f0 f1 f2 f3 f4 f5 f6 f7
         $ns flush-trace
 	#Close the trace file
         close $nf
@@ -23,18 +27,28 @@ proc finish {} {
 	close $f1
 	close $f2
 	close $f3
+	close $f4
+	close $f5
+	close $f6
+	close $f7
 	#Execute nam on the trace file
         exec nam out.nam &
         exit 0
 }
 
 proc record {} {
-        global ns tcp0 tcp1 tcp2 tcp3 f0 f1 f2 f3
+        global ns sink0 sink1 sink2 sink3 tcp0 tcp1 tcp2 tcp3 f0 f1 f2 f3 f4 f5 f6 f7
 	#Get an instance of the simulator
 	#set ns [Simulator instance]
 	#Set the time after which the procedure should be called again
         set time 0.1
 	#How many bytes have been received by the traffic sinks?
+        set bw0 [$sink0 set bytes_]
+	set bw1	[$sink1 set bytes_]
+	set bw2 [$sink2 set bytes_]
+	set bw3 [$sink3 set bytes_]
+
+
         set cwnd0 [$tcp0 set cwnd_]
 	set cwnd1 [$tcp1 set cwnd_]
         set cwnd2 [$tcp2 set cwnd_]
@@ -47,6 +61,16 @@ proc record {} {
 	puts $f1 "$now $cwnd1"
 	puts $f2 "$now $cwnd2"
 	puts $f3 "$now $cwnd3"
+
+        puts $f4 "$now [expr $bw0/$time*8/1000000]"
+        puts $f5 "$now [expr $bw1/$time*8/1000000]"
+        puts $f6 "$now [expr $bw2/$time*8/1000000]"
+        puts $f7 "$now [expr $bw3/$time*8/1000000]"
+
+        $sink0 set bytes_ 0
+	$sink1 set bytes_ 0
+	$sink2 set bytes_ 0
+	$sink3 set bytes_ 0
 	
 	#Re-schedule the procedure
         $ns at [expr $now+$time] "record"
