@@ -30,15 +30,8 @@ proc finish {} {
 
 proc record {} {
         global ns tcp0 tcp1 tcp2 tcp3 f0 f1 f2 f3
-	#Get an instance of the simulator
-	#set ns [Simulator instance]
 	#Set the time after which the procedure should be called again
         set time 0.1
-	#How many bytes have been received by the traffic sinks?
-        #set bw0 [$sink0 set bytes_]
-	#set bw1	[$sink1 set bytes_]
-	#set bw2 [$sink2 set bytes_]
-	#set bw3 [$sink3 set bytes_]
 		
 	#Get the current time
         set now [$ns now]
@@ -54,11 +47,6 @@ proc record {} {
 	puts $f2 "$now $cwnd2"
 	puts $f3 "$now $cwnd3"
 	
-	#Reset the bytes_ values on the traffic sinks
-        #$sink0 set bytes_ 0
-	#$sink1 set bytes_ 0
-	#$sink2 set bytes_ 0
-	#$sink3 set bytes_ 0
 	#Re-schedule the procedure
         $ns at [expr $now+$time] "record"
 }
@@ -101,28 +89,28 @@ $ns duplex-link-op $n3 $n9 orient down
 #Create a TCP agent and attach it to node n0
 set tcp0 [new Agent/TCP]
 $tcp0 set packetSize_ 1500
-$tcp0 set window_ 128
+$tcp0 set window_ 85
 $ns attach-agent $n0 $tcp0
 $tcp0 set class_ 2
 
 #Create a TCP agent and attach it to node n1
 set tcp1  [new Agent/TCP]
 $tcp1 set packetSize_ 1500
-$tcp1 set window_ 128
+$tcp1 set window_ 85
 $ns attach-agent $n1 $tcp1
 $tcp1 set class_ 1
 
 #Create a TCP agent and attach it to node n0
 set tcp2 [new Agent/TCP]
 $tcp2 set packetSize_ 1500
-$tcp2 set window_ 128
+$tcp2 set window_ 85
 $ns attach-agent $n6 $tcp2
 $tcp2 set class_ 3
 
 #Create a TCP agent and attach it to node n0
 set tcp3 [new Agent/TCP]
 $tcp3 set packetSize_ 1500
-$tcp3 set window_ 128
+$tcp3 set window_ 85
 $ns attach-agent $n8 $tcp3
 $tcp3 set class_ 4
 
@@ -158,13 +146,13 @@ $ns connect $tcp3 $sink3
 
 #Schedule events for the CBR agent
 $ns at 0.0 "record"
-$ns at 1.0  "$ftp0 start"
+$ns at 0.05  "$ftp0 start"
 $ns at 20.0  "$ftp0 stop"
-$ns at 1.5  "$ftp1 start"
+$ns at 0.1  "$ftp1 start"
 $ns at 20.0 "$ftp1 stop"
-$ns at 1.75 "$ftp2 start"
+$ns at 0.15 "$ftp2 start"
 $ns at 20.0 "$ftp2 stop"
-$ns at 2.0 "$ftp3 start"
+$ns at 0.2 "$ftp3 start"
 $ns at 20.0 "$ftp3 stop"
 
 #Call the finish procedure after 5 seconds of simulation time
