@@ -7,8 +7,8 @@ $ns color 2 Blue
 
 #Open the nam trace file
 set nf [open out.nam w]
-set f0 [open 1_VegasReno.tr w]
-set f1 [open 2_VegasReno.tr w]
+set f0 [open 1_Reno.tr w]
+set f1 [open 2_Reno.tr w]
 $ns namtrace-all $nf
 
 #Define a 'finish' procedure
@@ -75,7 +75,7 @@ $ns duplex-link-op $n3 $n4 orient right-up
 $ns duplex-link-op $n3 $n5 orient right-down
 
 #Create a TCP agent and attach it to node n0
-set tcp0 [new Agent/TCP/Vegas]
+set tcp0 [new Agent/TCP/Reno]
 $tcp0 set packetSize_ 1500
 $tcp0 set window_ 128
 $ns attach-agent $n0 $tcp0
