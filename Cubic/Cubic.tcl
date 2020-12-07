@@ -90,13 +90,16 @@ $ns duplex-link-op $n3 $n9 orient down
 set tcp0 [new Agent/TCP/Linux]
 $tcp0 set packetSize_ 1500
 $tcp0 set window_ 128
+$ns at 0 "$tcp0 select_ca cubic"
 $ns attach-agent $n0 $tcp0
 $tcp0 set class_ 2
+
 
 #Create a TCP agent and attach it to node n1
 set tcp1  [new Agent/TCP/Linux]
 $tcp1 set packetSize_ 1500
 $tcp1 set window_ 128
+$ns at 0 "$tcp1 select_ca cubic"
 $ns attach-agent $n1 $tcp1
 $tcp1 set class_ 1
 
@@ -104,6 +107,7 @@ $tcp1 set class_ 1
 set tcp2 [new Agent/TCP/Linux]
 $tcp2 set packetSize_ 1500
 $tcp2 set window_ 128
+$ns at 0 "$tcp2 select_ca cubic"
 $ns attach-agent $n6 $tcp2
 $tcp2 set class_ 3
 
@@ -111,6 +115,7 @@ $tcp2 set class_ 3
 set tcp3 [new Agent/TCP/Linux]
 $tcp3 set packetSize_ 1500
 $tcp3 set window_ 128
+$ns at 0 "$tcp3 select_ca cubic"
 $ns attach-agent $n8 $tcp3
 $tcp3 set class_ 4
 
